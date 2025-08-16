@@ -29,7 +29,7 @@ h1 {
   font-size: 2.5em;
 }
 
-.question {
+.question, #finalMessage {
   display: none;
   margin-top: 50px;
   max-width: 90%;
@@ -86,7 +86,6 @@ button {
   position: absolute;
   width: 10px;
   height: 10px;
-  background: #ff3366;
   opacity: 0.8;
   top: 0;
   pointer-events: none;
@@ -97,21 +96,26 @@ button {
   to {transform: translateY(800px) rotate(360deg);}
 }
 
-/* ===== Mensaje final ===== */
-#finalMessage {
-  display: none;
-  font-size: 1.5em;
-  color: #ff0066;
-  margin-top: 50px;
-  text-align: center;
-  animation: fadeInUp 1.2s ease forwards;
-}
-
 /* ===== Responsivo ===== */
 @media (max-width: 768px) {
   button {font-size: 16px; padding: 10px 20px;}
   h1 {font-size: 2em;}
   #finalMessage {font-size: 1.2em;}
+}
+
+#startButton {
+  padding: 20px 40px;
+  font-size: 22px;
+  border-radius: 25px;
+  background-color: #ff3366;
+  color: white;
+  margin-top: 100px;
+  box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+#startButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #ff6699;
 }
 </style>
 </head>
@@ -119,8 +123,11 @@ button {
 
 <h1>💖 Juego para mi amor 💖</h1>
 
+<!-- Botón de inicio -->
+<button id="startButton" onclick="startGame()">Presiona aquí para empezar 💖</button>
+
 <!-- Preguntas -->
-<div class="question" id="q1" style="display:block">
+<div class="question" id="q1">
   <p>¿Cómo te llamas?</p>
   <button class="correct" onclick="nextQuestion(1)">Pimpollo</button>
   <button class="wrong" onmouseover="moveButton(this)">Juset</button>
@@ -168,9 +175,25 @@ button {
   <p>Mi niña hermosa quiero decirte que te amo mucho y que nunca me iré de tu lado, estaré aquí para ti siempre pase lo que pase mi amor ❤️</p>
 </div>
 
+<!-- ===== JavaScript ===== -->
 <script>
+// ===== Variables de sonido y música =====
+const bgMusic = new Audio('musica.mp3'); // pon tu MP3 aquí
+bgMusic.loop = true;
+
+const correctSound = new Audio('correct.mp3'); // efecto correcto
+const wrongSound = new Audio('wrong.mp3');     // efecto incorrecto
+
+// ===== Iniciar juego =====
+function startGame() {
+  document.getElementById('startButton').style.display = 'none';
+  document.getElementById('q1').style.display = 'block';
+  bgMusic.play(); // desbloquea música tras clic
+}
+
 // ===== Botón travieso =====
 function moveButton(btn) {
+  wrongSound.play();
   const x = Math.random() * (window.innerWidth - btn.offsetWidth - 50);
   const y = Math.random() * (window.innerHeight - btn.offsetHeight - 50);
   btn.style.position = 'absolute';
@@ -180,6 +203,7 @@ function moveButton(btn) {
 
 // ===== Avanza preguntas =====
 function nextQuestion(current) {
+  correctSound.play();
   document.body.style.background = randomGradient(); // cambia fondo
   const next = current + 1;
   document.getElementById("q" + current).style.display = "none";
