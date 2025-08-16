@@ -6,7 +6,6 @@
 <title>Juego Romántico Mejorado 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ===== Estilos generales ===== */
 body {
   margin: 0;
   padding: 0;
@@ -63,7 +62,6 @@ button {
   background-color: #ccc;
 }
 
-/* ===== Animaciones ===== */
 @keyframes fadeInUp {
   from {opacity: 0; transform: translateY(30px);}
   to {opacity: 1; transform: translateY(0);}
@@ -96,7 +94,6 @@ button {
   to {transform: translateY(800px) rotate(360deg);}
 }
 
-/* ===== Responsivo ===== */
 @media (max-width: 768px) {
   button {font-size: 16px; padding: 10px 20px;}
   h1 {font-size: 2em;}
@@ -123,10 +120,9 @@ button {
 
 <h1>💖 Juego para mi amor 💖</h1>
 
-<!-- Botón de inicio -->
 <button id="startButton" onclick="startGame()">Presiona aquí para empezar 💖</button>
 
-<!-- Preguntas -->
+<!-- Preguntas originales + nuevas -->
 <div class="question" id="q1">
   <p>¿Cómo te llamas?</p>
   <button class="correct" onclick="nextQuestion(1)">Pimpollo</button>
@@ -134,61 +130,83 @@ button {
 </div>
 
 <div class="question" id="q2">
-  <p>¿Cuándo empezamos a ser novios?</p>
-  <button class="correct" onclick="nextQuestion(2)">Cuando te permití ser el novio de tremenda mamacita</button>
-  <button class="wrong" onmouseover="moveButton(this)">El 16 de Marzo</button>
+  <p>¿Recuerdas nuestro primer beso?</p>
+  <button class="correct" onclick="nextQuestion(2)">Claro que sí, fue mágico</button>
+  <button class="wrong" onmouseover="moveButton(this)">No me acuerdo</button>
 </div>
 
 <div class="question" id="q3">
-  <p>¿Me amas?</p>
-  <button class="correct" onclick="nextQuestion(3)">Si</button>
-  <button class="wrong" onmouseover="moveButton(this)">No</button>
+  <p>¿Cuándo empezamos a ser novios?</p>
+  <button class="correct" onclick="nextQuestion(3)">Cuando te permití ser el novio de tremenda mamacita</button>
+  <button class="wrong" onmouseover="moveButton(this)">El 16 de Marzo</button>
 </div>
 
 <div class="question" id="q4">
-  <p>¿Eres mi preciosa mujer?</p>
+  <p>¿Me amas?</p>
   <button class="correct" onclick="nextQuestion(4)">Si</button>
   <button class="wrong" onmouseover="moveButton(this)">No</button>
 </div>
 
 <div class="question" id="q5">
-  <p>¿Me perdonas?</p>
+  <p>¿Eres mi preciosa mujer?</p>
   <button class="correct" onclick="nextQuestion(5)">Si</button>
   <button class="wrong" onmouseover="moveButton(this)">No</button>
 </div>
 
 <div class="question" id="q6">
-  <p>¿Sabías que te amo mucho mi amor?</p>
-  <button class="correct" onclick="nextQuestion(6)">Si</button>
-  <button class="wrong" onmouseover="moveButton(this)">No</button>
+  <p>¿Me extrañas cuando no estoy contigo?</p>
+  <button class="correct" onclick="nextQuestion(6)">Siempre 😘</button>
+  <button class="wrong" onmouseover="moveButton(this)">No mucho</button>
 </div>
 
 <div class="question" id="q7">
-  <p>¿Sabes qué es la irrigación y vascularización del páncreas?</p>
+  <p>¿Me perdonas?</p>
   <button class="correct" onclick="nextQuestion(7)">Si</button>
   <button class="wrong" onmouseover="moveButton(this)">No</button>
 </div>
 
-<!-- Mensaje final -->
+<div class="question" id="q8">
+  <p>¿Sabías que te amo mucho mi amor?</p>
+  <button class="correct" onclick="nextQuestion(8)">Si</button>
+  <button class="wrong" onmouseover="moveButton(this)">No</button>
+</div>
+
+<div class="question" id="q9">
+  <p>¿Quieres que siempre estemos juntos?</p>
+  <button class="correct" onclick="nextQuestion(9)">Sí, por siempre 💖</button>
+  <button class="wrong" onmouseover="moveButton(this)">No</button>
+</div>
+
+<div class="question" id="q10">
+  <p>¿Recuerdas nuestra primera aventura juntos?</p>
+  <button class="correct" onclick="nextQuestion(10)">Sí, fue increíble</button>
+  <button class="wrong" onmouseover="moveButton(this)">No recuerdo</button>
+</div>
+
+<div class="question" id="q11">
+  <p>¿Sabes qué es la irrigación y vascularización del páncreas?</p>
+  <button class="correct" onclick="nextQuestion(11)">Si</button>
+  <button class="wrong" onmouseover="moveButton(this)">No</button>
+</div>
+
 <div id="finalMessage">
   <h2>🎉 ¡Felicidades mi amor! 🎉</h2>
   <p>Mi niña hermosa quiero decirte que te amo mucho y que nunca me iré de tu lado, estaré aquí para ti siempre pase lo que pase mi amor ❤️</p>
 </div>
 
-<!-- ===== JavaScript ===== -->
 <script>
-// ===== Variables de sonido y música =====
-const bgMusic = new Audio('musica.mp3.MP3'); // pon tu MP3 aquí
+// ===== Música y efectos =====
+const bgMusic = new Audio('musica.mp3');
 bgMusic.loop = true;
 
-const correctSound = new Audio('correct.mp3'); // efecto correcto
-const wrongSound = new Audio('wrong.mp3');     // efecto incorrecto
+const correctSound = new Audio('correct.mp3');
+const wrongSound = new Audio('wrong.mp3');
 
 // ===== Iniciar juego =====
 function startGame() {
   document.getElementById('startButton').style.display = 'none';
   document.getElementById('q1').style.display = 'block';
-  bgMusic.play(); // desbloquea música tras clic
+  bgMusic.play();
 }
 
 // ===== Botón travieso =====
@@ -204,7 +222,7 @@ function moveButton(btn) {
 // ===== Avanza preguntas =====
 function nextQuestion(current) {
   correctSound.play();
-  document.body.style.background = randomGradient(); // cambia fondo
+  document.body.style.background = randomGradient();
   const next = current + 1;
   document.getElementById("q" + current).style.display = "none";
   const nextDiv = document.getElementById("q" + next);
@@ -268,3 +286,4 @@ function randomColor(){
 
 </body>
 </html>
+
