@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juego Romántico</title>
+<style>
+body {
+  font-family: 'Arial', sans-serif;
+  background: #ffe6f0;
+  text-align: center;
+  padding: 50px;
+  overflow: hidden;
+}
+
+.question {
+  display: none;
+  margin-top: 50px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.correct {
+  background-color: #ff6b81;
+  color: white;
+}
+
+.wrong {
+  background-color: #ccc;
+}
+
+#finalMessage {
+  display: none;
+  font-size: 24px;
+  color: #ff0066;
+  margin-top: 50px;
+  animation: fadeIn 2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform: scale(0.8);}
+  to {opacity:1; transform: scale(1);}
+}
+
+/* Corazones flotando */
+.heart {
+  position: absolute;
+  color: #ff3366;
+  font-size: 24px;
+  animation: float 3s linear infinite;
+}
+
+@keyframes float {
+  0% {transform: translateY(0) rotate(0deg);}
+  100% {transform: translateY(-800px) rotate(360deg);}
+}
+</style>
+</head>
+<body>
+
+<h1>Juego para mi amor 💖</h1>
+
+<!-- Preguntas -->
+<div class="question" id="q1" style="display:block">
+  <p>¿Cómo te llamas?</p>
+  <button class="correct" onclick="nextQuestion(1)">Pimpollo</button>
+  <button class="wrong" onmouseover="moveButton(this)">Juset</button>
+</div>
+
+<div class="question" id="q2">
+  <p>¿Cuándo empezamos a ser novios?</p>
+  <button class="correct" onclick="nextQuestion(2)">Cuando te permití ser el novio de tremenda mamacita</button>
+  <button class="wrong" onmouseover="moveButton(this)">El 16 de Marzo</button>
+</div>
+
+<div class="question" id="q3">
+  <p>¿Me amas?</p>
+  <button class="correct" onclick="nextQuestion(3)">Si</button>
+  <button class="wrong" onmouseover="moveButton(this)">No</button>
+</div>
+
+<div class="question" id="q4">
+  <p>¿Eres mi preciosa mujer?</p>
+  <button class="correct" onclick="nextQuestion(4)">Si</button>
+  <button class="wrong" onmouseover="moveButton(this)">No</button>
+</div>
+
+<div class="question" id="q5">
+  <p>¿Me perdonas?</p>
+  <button class="correct" onclick="nextQuestion(5)">Si</button>
+  <button class="wrong" onmouseover="moveButton(this)">No</button>
+</div>
+
+<div class="question" id="q6">
+  <p>¿Sabías que te amo mucho mi amor?</p>
+  <button class="correct" onclick="nextQuestion(6)">Si</button>
+  <button class="wrong" onmouseover="moveButton(this)">No</button>
+</div>
+
+<div class="question" id="q7">
+  <p>¿Sabes qué es la irrigación y vascularización del páncreas?</p>
+  <button class="correct" onclick="nextQuestion(7)">Si</button>
+  <button class="wrong" onmouseover="moveButton(this)">No</button>
+</div>
+
+<!-- Mensaje final -->
+<div id="finalMessage">
+  <h2>🎉 ¡Felicidades mi amor! 🎉</h2>
+  <p>Mi niña hermosa quiero decirte que te amo mucho y que nunca me iré de tu lado, estaré aquí para ti siempre pase lo que pase mi amor ❤️</p>
+</div>
+
+<script>
+// Mueve el botón malo a posición aleatoria
+function moveButton(btn) {
+  const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+  btn.style.position = 'absolute';
+  btn.style.left = x + 'px';
+  btn.style.top = y + 'px';
+}
+
+// Avanza a la siguiente pregunta
+function nextQuestion(current) {
+  const next = current + 1;
+  document.getElementById("q" + current).style.display = "none";
+  const nextDiv = document.getElementById("q" + next);
+  if(nextDiv) {
+    nextDiv.style.display = "block";
+  } else {
+    showFinalMessage();
+  }
+}
+
+// Muestra mensaje final con animación de corazones
+function showFinalMessage() {
+  document.getElementById("finalMessage").style.display = "block";
+  createHearts(30); // cantidad de corazones
+}
+
+// Crea corazones flotando
+function createHearts(num) {
+  for(let i=0; i<num; i++){
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random()*window.innerWidth + 'px';
+    heart.style.fontSize = (Math.random()*30 + 20) + 'px';
+    heart.innerText = '❤️';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+}
+</script>
+
+</body>
+</html>
